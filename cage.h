@@ -1,4 +1,4 @@
-#pragma once
+#pragma once // комментарий
 
 #include <iostream>
 #include <vector>
