@@ -41,7 +41,8 @@ void Field::ChangeField(int _x, int _y, Ship * _fleet, int n) {
 
 
 
-void Field::PutShip(int _x, int _y, Ship* _fleet, int n) {
+int Field::PutShip(int _x, int _y, Ship* _fleet, int n) {
+	int excode = 0; // exit code
 	if (!_fleet[n].ReturnBC()) {
 		bool offsite = false;
 		bool nplaced = true; //not placed
@@ -125,6 +126,7 @@ void Field::PutShip(int _x, int _y, Ship* _fleet, int n) {
 				_fleet[n].BCplus();
 				ChangeField(_x, _y, _fleet, n);
 				_fleet[n].InitShip(_x, _y);
+				excode = 1;
 			}
 			else
 				std::cout << "Area is busy \n";
@@ -134,12 +136,14 @@ void Field::PutShip(int _x, int _y, Ship* _fleet, int n) {
 	}
 	else
 		std::cout << "Ship has been already placed \n";
+	return excode;
 }
-void Field::StrikeCages(int _x, int _y, Ship* _fleet) {	
+int Field::StrikeCages(int _x, int _y, Ship* _fleet) {	
+	int excode = 0; //exit code
 	if (!(_x < 0 || _x > 9 || _y < 0 || _y > 9)) {
 		if (ShipField[_x][_y].Status() == "DESTROYED" || ShipField[_x][_y].Status() == "MISSED" || ShipField[_x][_y].Status() == "ELIMINATED") {
 			std::cout << "The spot has been already striked \n";
-			return;
+			return 0;
 		}
 		bool missed = true;
 		for (int i = 0; i < 10; ++i) { //!!!
@@ -148,6 +152,7 @@ void Field::StrikeCages(int _x, int _y, Ship* _fleet) {
 					std::string _st = "DESTROYED";
 					ChangeCages(_x, _y, _st);
 					_fleet[i].ChangeCages(_x, _y, _st);
+					excode = 2;
 					if (_fleet[i].ReturnHealth() == 0) {
 						ShipCount--;
 						//ReduceSCount();
@@ -184,11 +189,14 @@ void Field::StrikeCages(int _x, int _y, Ship* _fleet) {
 				}
 			}
 		}
-		if (missed)
+		if (missed) {
 			ChangeCages(_x, _y, "MISSED");
+			excode = 1;
+		}
 	}
 	else
 		std::cout << "Out of field range! \n";
+	return excode;
 }
 
 int Field::ReturnSCount() {
@@ -202,6 +210,13 @@ int Field::ReturnSCount() {
 //void Field::SCountPlus() {
 //	ShipCount++;
 //}
+
+std::string Field::ReturnCStat(int _x, int _y) {
+	if (_x >= 0 || _x <= 9 || _y >= 0 || _y <= 9)
+		return ShipField[_x][_y].Status();
+	else
+		return 0;
+}
 
 std::ostream& operator<<(std::ostream& out, const Field& fld) {
 	fld.PrintCages();

@@ -1,5 +1,6 @@
-#pragma once // комментарий test
+#pragma once
 
+#include <cstdlib>
 #include <iostream>
 #include <vector>
 #include <stdexcept>

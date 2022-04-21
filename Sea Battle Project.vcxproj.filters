@@ -27,7 +27,7 @@
     <ClCompile Include="ship.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="fleet.cpp">
+    <ClCompile Include="bot.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,10 +41,10 @@
     <ClInclude Include="ship.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="fleet.h">
+    <ClInclude Include="CageArray.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="CageArray.h">
+    <ClInclude Include="bot.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>

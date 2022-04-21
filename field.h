@@ -9,10 +9,11 @@ public:
 	virtual ~Field() {};
 	virtual void PrintCages() const; 
 	virtual void ChangeCages(int _x, int _y, std::string _st); //change cage status to ACTIVE (receives coordinates)	
-	void StrikeCages(int _x, int _y, Ship* _fleet);	
+	int StrikeCages(int _x, int _y, Ship* _fleet);	
 	void ChangeField(int _x, int _y, Ship* _fleet, int n);
-	void PutShip(int _x, int _y, Ship* _fleet, int n);
+	int PutShip(int _x, int _y, Ship* _fleet, int n);
 	int ReturnSCount();
+	std::string ReturnCStat(int _x, int _y);
 	/*void ReduceSCount();
 	void SCountPlus();*/	
 private:

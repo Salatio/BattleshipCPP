@@ -1,4 +1,3 @@
-﻿  field.cpp
-  main.cpp
-  Создание кода...
+﻿  main.cpp
+S:\Files\Programming\Sea Battle Rep\versions\Sea Battle Project v 0.3\Sea Battle Project\main.cpp(13,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
   Sea Battle Project.vcxproj -> S:\Files\Programming\Sea Battle Rep\versions\Sea Battle Project v 0.3\x64\Debug\Sea Battle Project.exe
