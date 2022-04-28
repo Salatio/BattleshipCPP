@@ -103,21 +103,7 @@ int Field::PutShip(int _x, int _y, Ship* _fleet, int n) {
 					}
 				}
 			}
-		}
-		
-		//try {
-		//	if (!offsite) { //if ship can be placed 
-		//		SCountPlus();
-		//		_fleet[n].BCplus();
-		//		ChangeField(_x, _y, _fleet, n);
-		//		_fleet[n].InitShip(_x, _y);
-		//	}
-		//	else
-		//		throw std::string("Offsite!");
-		//}
-		//catch (const char* err) {
-
-		//}		
+		}		
 
 		if (!offsite) { //if ship can be placed 
 			if (nplaced) {

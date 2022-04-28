@@ -30,6 +30,9 @@
     <ClCompile Include="bot.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="CBattle.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cage.h">
@@ -45,6 +48,9 @@
       <Filter>Исходные файлы</Filter>
     </ClInclude>
     <ClInclude Include="bot.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="CBattle.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>
