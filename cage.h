@@ -4,6 +4,11 @@
 #include <iostream>
 #include <vector>
 #include <stdexcept>
+#include <Windows.h>
+
+void GoToXY(int x, int y);
+void CursorVisible(bool visible);
+void ClearS();
 
 class Cage {
 public:	

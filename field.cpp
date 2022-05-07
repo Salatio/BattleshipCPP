@@ -93,7 +93,7 @@ int Field::PutShip(int _x, int _y, Ship* _fleet, int n) {
 		else if (_fleet[n].ReturnDirection() == "UP") {
 			if (_x - (_fleet[n].ReturnDecks() - 1) < 0)
 				offsite = true;
-			for (int i = _x - 1; i <= _x + _fleet[n].ReturnDecks(); ++i) {
+			for (int i = _x + 1; i >= _x - _fleet[n].ReturnDecks(); --i) {
 				for (int j = _y - 1; j <= _y + 1; ++j) {
 					if (i >= 0 && i <= 9 && j >= 0 && j <= 9) {
 						if (ShipField[i][j].Status() == "ACTIVE") {
@@ -127,7 +127,7 @@ int Field::PutShip(int _x, int _y, Ship* _fleet, int n) {
 int Field::StrikeCages(int _x, int _y, Ship* _fleet) {	
 	int excode = 0; //exit code
 	if (!(_x < 0 || _x > 9 || _y < 0 || _y > 9)) {
-		if (ShipField[_x][_y].Status() == "DESTROYED" || ShipField[_x][_y].Status() == "MISSED" || ShipField[_x][_y].Status() == "ELIMINATED") {
+		if (ShipField[_x][_y].Status() == "DESTROYED" || ShipField[_x][_y].Status() == "MISSED" || ShipField[_x][_y].Status() == "ELIMINATED" || ShipField[_x][_y].Status() == "NOTHERE") {
 			std::cout << "The spot has been already striked \n";
 			return 0;
 		}
@@ -149,10 +149,30 @@ int Field::StrikeCages(int _x, int _y, Ship* _fleet) {
 							while (cnt++ < _fleet[i].ReturnDecks()) {
 								ChangeCages(_x, _fleet[i].ReturnY(cnt - 1), _st);
 							}
+							int a = i;
+							for (int i = _fleet[a].ReturnX(0) - 1; i <= _fleet[a].ReturnX(0) + 1; ++i) {
+								for (int j = _fleet[a].ReturnY(0) - 1; j <= _fleet[a].ReturnY(0) + _fleet[a].ReturnDecks(); ++j) {
+									if (i >= 0 && i <= 9 && j >= 0 && j <= 9) {
+										if (ShipField[i][j].Status() == "INIT") {
+											ChangeCages(i, j, "NOTHERE");											
+										}
+									}
+								}
+							}
 						}
 						else if (_fleet[i].ReturnDirection() == "DOWN") {
 							while (cnt++ < _fleet[i].ReturnDecks()) {
 								ChangeCages(_fleet[i].ReturnX(cnt - 1), _y, _st);
+							}
+							int a = i;
+							for (int i = _fleet[a].ReturnX(0) - 1; i <= _fleet[a].ReturnX(0) + _fleet[a].ReturnDecks(); ++i) {
+								for (int j = _fleet[a].ReturnY(0) - 1; j <= _fleet[a].ReturnY(0) + 1; ++j) {
+									if (i >= 0 && i <= 9 && j >= 0 && j <= 9) {
+										if (ShipField[i][j].Status() == "INIT") {
+											ChangeCages(i, j, "NOTHERE");
+										}
+									}
+								}
 							}
 						}
 						else if (_fleet[i].ReturnDirection() == "LEFT") {
@@ -160,11 +180,31 @@ int Field::StrikeCages(int _x, int _y, Ship* _fleet) {
 							while (cnt++ < _fleet[i].ReturnDecks()) {
 								ChangeCages(_x, _fleet[i].ReturnY(temp--), _st);
 							}
+							int a = i;
+							for (int i = _fleet[a].ReturnX(0) - 1; i <= _fleet[a].ReturnX(0) + 1; ++i) {
+								for (int j = _fleet[a].ReturnY(0) + 1; j >= _fleet[a].ReturnY(_fleet[a].ReturnDecks()) - 1; --j) {
+									if (i >= 0 && i <= 9 && j >= 0 && j <= 9) {
+										if (ShipField[i][j].Status() == "INIT") {
+											ChangeCages(i, j, "NOTHERE");
+										}
+									}
+								}
+							}
 						}
 						else if (_fleet[i].ReturnDirection() == "UP") {
 							int temp = _fleet[i].ReturnDecks() - 1;
 							while (cnt++ < _fleet[i].ReturnDecks()) {
 								ChangeCages(_fleet[i].ReturnX(temp--), _y, _st);
+							}
+							int a = i;
+							for (int i = _fleet[a].ReturnX(0) + 1; i >= (_fleet[a].ReturnX(0) - _fleet[a].ReturnDecks()); --i) {
+								for (int j = _fleet[a].ReturnY(0) - 1; j <= _fleet[a].ReturnY(0) + 1; ++j) {
+									if (i >= 0 && i <= 9 && j >= 0 && j <= 9) {
+										if (ShipField[i][j].Status() == "INIT") {
+											ChangeCages(i, j, "NOTHERE");
+										}
+									}
+								}
 							}
 						}
 						if (!ShipCount)

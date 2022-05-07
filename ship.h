@@ -2,7 +2,7 @@
 
 #include "CageArray.h"
 
-#define N 10 
+#define LEN 10 
 
 class Ship: public CageArray {
 public:	

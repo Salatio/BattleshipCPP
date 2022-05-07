@@ -1,11 +1,3 @@
 ﻿  CBattle.cpp
-S:\Files\Programming\Sea Battle Rep\versions\Sea Battle Project v 0.5\Sea Battle Project\CBattle.cpp(113,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-  bot.cpp
-  cage.cpp
-  field.cpp
-  main.cpp
-  ship.cpp
-  Создание кода...
-S:\Files\Programming\Sea Battle Rep\versions\Sea Battle Project v 0.5\Sea Battle Project\bot.cpp(82): warning C4715: Bot::BotStrikeField: значение возвращается не при всех путях выполнения
-S:\Files\Programming\Sea Battle Rep\versions\Sea Battle Project v 0.5\Sea Battle Project\bot.cpp(180): warning C4715: Bot::StrikeF_1: значение возвращается не при всех путях выполнения
-  Sea Battle Project.vcxproj -> S:\Files\Programming\Sea Battle Rep\versions\Sea Battle Project v 0.5\x64\Debug\Sea Battle Project.exe
+S:\Files\Programming\Sea Battle Rep\versions\Sea Battle Project v 0.5 — копия\Sea Battle Project\CBattle.cpp(101,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Sea Battle Project.vcxproj -> S:\Files\Programming\Sea Battle Rep\versions\Sea Battle Project v 0.5 — копия\x64\Debug\Sea Battle Project.exe

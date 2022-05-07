@@ -9,7 +9,7 @@ public:
 	void RunGame();
 	void GameBody(int dif);
 	void NewGame();
-	void PrintF(Field& _fld);
+	void PrintF(Field& _fld, int c);
 private:
 
 };

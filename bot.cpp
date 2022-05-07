@@ -62,7 +62,7 @@ void Bot::PutShip_1(Field& _fld, Ship* _fleet) {
 			}
 			if (_fld.PutShip(i, j, _fleet, n))
 				arr[n]++;
-			if (_fld.ReturnSCount() == N) {
+			if (_fld.ReturnSCount() == LEN) {
 				set = true;
 				break;
 			}
