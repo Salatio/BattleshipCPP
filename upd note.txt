@@ -1,0 +1,5 @@
+25 03 22. 12 48: shipcount + "fleet defeated" are working
+
+07 04 22: ship can't be added out of field, strike can't be done out of field. Ship can't be added on top or close to another ship.
+
+17 04 22: deleted 'fleet' files
