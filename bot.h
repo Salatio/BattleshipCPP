@@ -17,8 +17,7 @@ public:
 	int ReturnDif();
 private:
 	int dif;
-	bool hit;
-	std::string pos;
+	bool hit;	
 	bool R, L, U, D;
 	int x, y;
 };

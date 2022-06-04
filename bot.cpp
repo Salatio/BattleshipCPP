@@ -1,7 +1,7 @@
 #include "bot.h"
 
-Bot::Bot() : dif(0), hit(false), x(-1), y(-1), pos("UNKNOWN"), R(true), L(true), U(true), D(true) {};
-Bot::Bot(int d) : dif(d), hit(false), x(-1), y(-1), pos("UNKNOWN"), R(true), L(true), U(true), D(true) {}
+Bot::Bot() : dif(0), hit(false), x(-1), y(-1), R(true), L(true), U(true), D(true) {};
+Bot::Bot(int d) : dif(d), hit(false), x(-1), y(-1), R(true), L(true), U(true), D(true) {}
 void Bot::BotPutShip(Field& _fld, Ship* _fleet) {
 	std::cout.setstate(std::ios_base::failbit);
 	srand(time(0));	
@@ -15,25 +15,7 @@ void Bot::BotPutShip(Field& _fld, Ship* _fleet) {
 	}
 	std::cout.clear();
 }
-void Bot::PutShip_0(Field& _fld, Ship* _fleet) {
-	////srand(time(0));	
-	//int arr[10] = { 0 }; //array of placed ships
-	//bool set = false;
-	//while (!set) {
-	//	for (int i = 0; i < 10; ++i) {
-	//		int j = rand() % 10;	
-	//		int n;
-	//		do {
-	//			n = rand() % 10;
-	//		} while (arr[n]);
-	//		if (_fld.PutShip(i, j, _fleet, n))
-	//			arr[n]++;
-	//		if (_fld.ReturnSCount() == 10) {
-	//			set = true;
-	//			break;
-	//		}
-	//	}
-	//}
+void Bot::PutShip_0(Field& _fld, Ship* _fleet) {	
 	PutShip_1(_fld, _fleet);
 }
 
@@ -93,19 +75,7 @@ int Bot::StrikeF_1(Field& _fld, Ship* _fleet) {
 	//srand(time(0));
 	if (!hit) {
 		int _x = rand() % 10;
-		int _y = rand() % 10;
-		/*int _y = 0;
-		if (_fld.ReturnCCount() > 20) {			
-			_y = rand() % 10;
-		}
-		else {
-			for (int j = 0; j < 9; j++) {
-				if (_fld.ReturnCStat(_x, _y) == "ACTIVE" || _fld.ReturnCStat(_x, _y) == "INIT") {
-					_y = j;
-					break;
-				} 
-			}
-		}*/
+		int _y = rand() % 10;		
 		std::cout.setstate(std::ios_base::failbit);
 		int tstrike = _fld.StrikeCages(_x, _y, _fleet);
 		std::cout.clear();
@@ -124,13 +94,11 @@ int Bot::StrikeF_1(Field& _fld, Ship* _fleet) {
 					break;
 				}
 				else if (_fld.ReturnCStat(x, j) != "DESTROYED") {
-					int striked = _fld.StrikeCages(x, j, _fleet);
-					//if (striked != 2)						
+					int striked = _fld.StrikeCages(x, j, _fleet);									
 					if (_fld.ReturnCStat(x, y) == "ELIMINATED") {
 						hit = false;
 						R = L = U = D = true;
-						x = y = -1;
-						//return 2;
+						x = y = -1;						
 					}
 					return striked;
 				}
@@ -143,13 +111,11 @@ int Bot::StrikeF_1(Field& _fld, Ship* _fleet) {
 					break;
 				}
 				else if (_fld.ReturnCStat(x, j) != "DESTROYED") {
-					int striked = _fld.StrikeCages(x, j, _fleet);
-					//if (striked != 2)						
+					int striked = _fld.StrikeCages(x, j, _fleet);										
 					if (_fld.ReturnCStat(x, y) == "ELIMINATED") {
 						hit = false;
 						R = L = U = D = true;
-						x = y = -1;
-						//return 2;
+						x = y = -1;						
 					}
 					return striked;
 				}
@@ -162,13 +128,11 @@ int Bot::StrikeF_1(Field& _fld, Ship* _fleet) {
 					break;
 				}
 				else if (_fld.ReturnCStat(i, y) != "DESTROYED") {
-					int striked = _fld.StrikeCages(i, y, _fleet);
-					//if (striked != 2)						
+					int striked = _fld.StrikeCages(i, y, _fleet);										
 					if (_fld.ReturnCStat(x, y) == "ELIMINATED") {
 						hit = false;
 						R = L = U = D = true;
-						x = y = -1;
-						//return 2;
+						x = y = -1;						
 					}
 					return striked;
 				}
@@ -181,13 +145,11 @@ int Bot::StrikeF_1(Field& _fld, Ship* _fleet) {
 					break;
 				}
 				else if (_fld.ReturnCStat(i, y) != "DESTROYED") {
-					int striked = _fld.StrikeCages(i, y, _fleet);
-					//if (striked != 2)						
+					int striked = _fld.StrikeCages(i, y, _fleet);										
 					if (_fld.ReturnCStat(x, y) == "ELIMINATED") {
 						hit = false;
 						R = L = U = D = true;
-						x = y = -1;
-						//return 2;
+						x = y = -1;						
 					}
 					return striked;
 				}

@@ -1,16 +1,13 @@
 #include "CBattle.h"
 #include <string>
 
-CBattle::CBattle(): BotDec(0), MapDec(0) {}
+CBattle::CBattle(): BotDec(0), MapDec(0),nBot(nullptr), MainField(nullptr), fleet(nullptr), BotFleet(nullptr), BotField(nullptr) {}
 void CBattle::RunGame() {
 	RenderWindow window(sf::VideoMode(1280, 720), "C Battle");
-	while (true)
-	{
-		GameMenu(window);
-		GameBody(window);
-	}
+	while (GameMenu(window))
+		while (GameBody(window)) {};
 }
-void CBattle::GameMenu(RenderWindow& window) {
+bool CBattle::GameMenu(RenderWindow& window) {
 	Texture Menutext;
 	Menutext.loadFromFile("img/WPA.png");
 	Sprite border, menu1, menu2, menu3, menu4;
@@ -30,12 +27,29 @@ void CBattle::GameMenu(RenderWindow& window) {
 	menu2.setScale(3, 3);
 	menu3.setScale(3, 3);
 	menu4.setScale(3, 3);
-	//menu1.setPosition(499, 100);
+
+	Texture Maptext;
+	Maptext.loadFromFile("img/maps.png");
+	Sprite mapsector1, mapsector2, mapsector3, mapsector4;
+	mapsector1.setTexture(Maptext);
+	mapsector1.setScale(2, 2);
+	mapsector1.setTextureRect(IntRect(0, 0, 90, 92));
+	mapsector2.setTexture(Maptext);
+	mapsector2.setScale(2, 2);
+	mapsector2.setTextureRect(IntRect(90, 0, 90, 92));
+	mapsector3.setTexture(Maptext);
+	mapsector3.setScale(2, 2);
+	mapsector3.setTextureRect(IntRect(90 * 2, 0, 90, 92));
+	mapsector4.setTexture(Maptext);
+	mapsector4.setScale(2, 2);
+	mapsector4.setTextureRect(IntRect(90 * 3, 0, 90, 92));
 
 	Font mfont;//шрифт 
 	mfont.loadFromFile("img/NB.ttf");
-	Text tname("", mfont, 30);
+	Text tname("", mfont, 30);	
 	tname.setStyle(sf::Text::Bold);	
+	tname.setOutlineColor(Color::Black);
+	tname.setOutlineThickness(3);
 	
 	int stage = 0;
 	int select = 0;
@@ -73,7 +87,7 @@ void CBattle::GameMenu(RenderWindow& window) {
 						break;
 					case 2:
 						std::cout << "EXIT\n";
-						//return;
+						return false;
 						break;
 					}
 				}
@@ -90,11 +104,12 @@ void CBattle::GameMenu(RenderWindow& window) {
 					switch (select) {
 					case 1:
 						//stage = 5;
-						return; //
 						pauseTimer = 2800;
 						std::cout << "PLAY \n";
+						return true;
 						break;
 					case 2:						
+						stage = 3;
 						pauseTimer = 2800;
 						std::cout << "CHOOSE MAP \n";
 						break;
@@ -131,6 +146,47 @@ void CBattle::GameMenu(RenderWindow& window) {
 						stage--;
 						pauseTimer = 2800;
 						std::cout << "BOT 1 \n";
+						break;
+					}
+				}
+				break;
+			case 3:
+				showMenu = 4;
+				select = 0;
+				//showMenu = true;				
+				if (IntRect(548 - 100, 140, 90*2, 92*2).contains(Mouse::getPosition(window))) { mapsector1.setColor(Color::Yellow); select = 1; }
+				if (IntRect(548 + 100, 140, 90*2, 92*2).contains(Mouse::getPosition(window))) { mapsector2.setColor(Color::Yellow); select = 2; }
+				if (IntRect(548 - 100, 350, 90*2, 92*2).contains(Mouse::getPosition(window))) { mapsector3.setColor(Color::Yellow); select = 3; }
+				if (IntRect(548 + 100, 350, 90*2, 92*2).contains(Mouse::getPosition(window))) { mapsector4.setColor(Color::Yellow); select = 4; }
+				if (Mouse::isButtonPressed(Mouse::Left)) {
+					switch (select) {
+					case 1:
+						//Botdif = 0;
+						MapDec = 0;
+						stage = 1;
+						pauseTimer = 2800;
+						std::cout << "map 0 \n";
+						break;
+					case 2:
+						//Botdif = 1;
+						MapDec = 1;
+						stage = 1;
+						pauseTimer = 2800;
+						std::cout << "map 1 \n";
+						break;
+					case 3:
+						//Botdif = 0;
+						MapDec = 2;
+						stage = 1;
+						pauseTimer = 2800;
+						std::cout << "map 2 \n";
+						break;
+					case 4:
+						//Botdif = 1;
+						MapDec = 3;
+						stage = 1;
+						pauseTimer = 2800;
+						std::cout << "map 3 \n";
 						break;
 					}
 				}
@@ -212,12 +268,26 @@ void CBattle::GameMenu(RenderWindow& window) {
 			menu1.setColor(Color::White);
 			menu2.setColor(Color::White);
 			break;
-		}
+		case 4:			
+			mapsector1.setPosition(548 - 100, 140);
+			window.draw(mapsector1);		
+			mapsector2.setPosition(548 + 100, 140);
+			window.draw(mapsector2);			
+			mapsector3.setPosition(548 - 100, 350);
+			window.draw(mapsector3);			
+			mapsector4.setPosition(548 + 100, 350);
+			window.draw(mapsector4);
+			mapsector1.setColor(Color::White);
+			mapsector2.setColor(Color::White);
+			mapsector3.setColor(Color::White);
+			mapsector4.setColor(Color::White);
+			break;
+		}		
 		
 		window.display();
 	}
 }
-void CBattle::GameBody(RenderWindow& window) {
+bool CBattle::GameBody(RenderWindow& window) {
 	Texture fieldtexture;
 	//fieldtexture.loadFromFile("img/m.png");
 	fieldtexture.loadFromFile("img/IN.png");
@@ -248,8 +318,20 @@ void CBattle::GameBody(RenderWindow& window) {
 	/////////////////////////////////
 	/////////////////////////////////
 	Texture bdtexture;
-	bdtexture.loadFromFile("img/n.jpg");
-
+	switch (MapDec) {
+	case 0:
+		bdtexture.loadFromFile("img/first.jpg");
+		break;
+	case 1:
+		bdtexture.loadFromFile("img/second.jpg");
+		break;
+	case 2:
+		bdtexture.loadFromFile("img/third.jpg");
+		break;
+	case 3:
+		bdtexture.loadFromFile("img/fourth.jpg");
+		break;
+	}	
 	Sprite bdsprite;
 	bdsprite.setTexture(bdtexture);
 	bdsprite.setScale(1.3, 1.3);
@@ -261,17 +343,44 @@ void CBattle::GameBody(RenderWindow& window) {
 	Text Fl("", font, 30), Mstk("", font, 20);
 	//text.setFillColor(Color::Yellow);	
 	Fl.setStyle(sf::Text::Bold);
+	Fl.setOutlineColor(Color::Black);
+	Fl.setOutlineThickness(3);
 	Mstk.setStyle(sf::Text::Bold);
 	Mstk.setFillColor(Color::Red);	
 	Mstk.setPosition(0, 410);
 
-	//Bot* nBot;
-	Bot nBot(BotDec); //crating new bot		
-	std::cout << nBot.ReturnDif() << " Bots dif \n";
-	Field MainField; //creating new field
-	Field BotField; //creating bot's field	
-	Ship fleet[10] = { 1, 1, 1, 1, 2, 2, 2, 3, 3, 4 }; // 0..3 = "1", 4..6 = "2", 7..8 = "3, 9 = "4"  -  creating new fleet  
-	Ship BotFleet[10] = { 1, 1, 1, 1, 2, 2, 2, 3, 3, 4 };  //creating bot's field
+	Texture Endmenu;
+	Endmenu.loadFromFile("img/WPA.png");
+	Sprite mborder, emenu1, emenu2;
+	mborder.setTexture(Endmenu);
+	emenu1.setTexture(Endmenu);
+	emenu2.setTexture(Endmenu);
+	mborder.setTextureRect(IntRect(449, 736, 94, 95));
+	mborder.setScale(5.2, 5.2);
+	mborder.setPosition(395, 40);
+	emenu1.setTextureRect(IntRect(417, 1056, 94, 32));
+	emenu2.setTextureRect(IntRect(417, 1056, 94, 32));
+	emenu1.setScale(3, 3);
+	emenu2.setScale(3, 3);
+	emenu1.setPosition(499, 270);
+	emenu2.setPosition(499, 370);
+	Text etext("LOL", font, 40);
+	etext.setStyle(sf::Text::Bold);
+	etext.setOutlineColor(Color::Black);
+	etext.setOutlineThickness(3);
+
+	
+	//Bot nBot(BotDec); //crating new bot	
+	nBot = new Bot(BotDec);
+	std::cout << nBot->ReturnDif() << " Bots dif \n";
+	//Field MainField; //creating new field
+	MainField = new Field;
+	//Field BotField; //creating bot's field	
+	BotField = new Field;
+	fleet = new Ship[]{1, 1, 1, 1, 2, 2, 2, 3, 3, 4};
+	//Ship fleet[10] = { 1, 1, 1, 1, 2, 2, 2, 3, 3, 4 }; // 0..3 = "1", 4..6 = "2", 7..8 = "3, 9 = "4"  -  creating new fleet  
+	//Ship BotFleet[10] = { 1, 1, 1, 1, 2, 2, 2, 3, 3, 4 };  //creating bot's field
+	BotFleet = new Ship[]{ 1, 1, 1, 1, 2, 2, 2, 3, 3, 4 };
 	int stage = 5;
 	int xс = 0, yс = 0;
 	int fi = 160, la = 100;	
@@ -284,6 +393,11 @@ void CBattle::GameBody(RenderWindow& window) {
 	int r = 0;	
 	int Botdif = 0;	
 	int mstkT = 0;
+	int strb = -1;
+	int strk = -1;
+	bool showemenu = false;
+	int select = 0;
+	int winner = -1;
 	Clock clock;
 	float pauseTimer = 2020;
 
@@ -367,7 +481,7 @@ void CBattle::GameBody(RenderWindow& window) {
 					break;
 				}
 				if ((Keyboard::isKeyPressed(Keyboard::N))) {
-					int puts = MainField.PutShip(xс, yс, fleet, n);
+					int puts = MainField->PutShip(xс, yс, fleet, n);
 					if (puts) {
 						n++;
 						fi = 160;
@@ -378,7 +492,7 @@ void CBattle::GameBody(RenderWindow& window) {
 					}
 					else
 						mstkT = 1;
-					if (MainField.ReturnSCount() == LEN) {
+					if (MainField->ReturnSCount() == LEN) {
 						stage++;
 						shipnt = false;
 						pauseTimer = 2000;
@@ -423,7 +537,7 @@ void CBattle::GameBody(RenderWindow& window) {
 			case 6:	
 				//shipnt = false;
 				srand(time(0));
-				nBot.BotPutShip(BotField, BotFleet);
+				nBot->BotPutShip(*BotField, BotFleet);
 				stage++;
 				fi = 730;
 				la = 100;
@@ -464,7 +578,7 @@ void CBattle::GameBody(RenderWindow& window) {
 					break;
 				}				
 				if ((Keyboard::isKeyPressed(Keyboard::N))) {
-					int strk = BotField.StrikeCages(xс, yс, BotFleet);
+					strk = BotField->StrikeCages(xс, yс, BotFleet);
 					if (strk == 1) {
 						stage++;
 						pauseTimer = 2000;
@@ -473,8 +587,10 @@ void CBattle::GameBody(RenderWindow& window) {
 					else
 						if (strk == 0)
 							mstkT = 2;
-					if (!BotField.ReturnSCount()) {
-						return;
+					if (!BotField->ReturnSCount()) {
+						winner = 0;
+						stage = 9;
+						pauseTimer = 2000;
 					}
 						//return;
 					///////////////
@@ -483,19 +599,56 @@ void CBattle::GameBody(RenderWindow& window) {
 				break;
 			case 8:				
 				//pauseTimer = 2000;
-				int strb = nBot.BotStrikeField(MainField, fleet);
+				strb = nBot->BotStrikeField(*MainField, fleet);
 				switch (strb) {
 				case 1:
 					stage--;
 					pauseTimer = 1500;
 					break;
 				case 2:
-					pauseTimer = 1500;
-					if (!MainField.ReturnSCount())
-						return;
+					pauseTimer = 2000;
+					if (!MainField->ReturnSCount()) {
+						winner = 1;
+						stage++;
+						pauseTimer = 2000;
+					}
 					/////////////////
 					break;
 				}				
+				break;
+			case 9:
+				std::cout << "end of cycle \n";
+				showemenu = true;
+				select = 0;
+				//showMenu = true;				
+				if (IntRect(499, 270, 94 * 3, 32 * 3).contains(Mouse::getPosition(window))) { emenu1.setColor(Color::Yellow); select = 1; }
+				if (IntRect(499, 370, 94 * 3, 32 * 3).contains(Mouse::getPosition(window))) { emenu2.setColor(Color::Yellow); select = 2; }
+				if (Mouse::isButtonPressed(Mouse::Left)) {
+					switch (select) {
+					case 1:						
+						pauseTimer = 2800;
+						std::cout << " GO HOME \n";
+						BotDec = 0;
+						MapDec = 0;
+						delete nBot;
+						delete MainField;
+						delete BotField;
+						delete[]fleet;
+						delete[]BotFleet;
+						return false;
+						break;
+					case 2:						
+						pauseTimer = 2800;
+						std::cout << " GO AGAIN \n";
+						delete nBot;
+						delete MainField;
+						delete BotField;
+						delete[]fleet;
+						delete[]BotFleet;
+						return true;
+						break;
+					}
+				}
 				break;
 			}			
 			//pauseTimer = 0;
@@ -515,26 +668,26 @@ void CBattle::GameBody(RenderWindow& window) {
 			for (int i = 0; i < 10; ++i) {
 				for (int j = 0; j < 10; ++j) {
 					fieldsprite.setPosition(f, l);
-					stt = MainField.ReturnCStat(i, j);
+					stt = MainField->ReturnCStat(i, j);
 					sym = stt[0];
 					switch (sym) {
 					case 'I':
-						fieldsprite.setTextureRect(IntRect(0, 0, 64, 64));//получили нужный нам прямоугольник с котом
+						fieldsprite.setTextureRect(IntRect(0, 0, 64, 64));
 						break;
 					case 'A':
-						fieldsprite.setTextureRect(IntRect(64, 0, 64, 64));//получили нужный нам прямоугольник с котом
+						fieldsprite.setTextureRect(IntRect(64, 0, 64, 64));
 						break;
 					case 'D':
-						fieldsprite.setTextureRect(IntRect(64, 64, 64, 64));//получили нужный нам прямоугольник с котом
+						fieldsprite.setTextureRect(IntRect(64, 64, 64, 64));
 						break;
 					case 'M':
-						fieldsprite.setTextureRect(IntRect(0, 64, 64, 64));//получили нужный нам прямоугольник с котом
+						fieldsprite.setTextureRect(IntRect(0, 64, 64, 64));
 						break;
 					case 'E':
-						fieldsprite.setTextureRect(IntRect(128, 0, 64, 64));//получили нужный нам прямоугольник с котом
+						fieldsprite.setTextureRect(IntRect(128, 0, 64, 64));
 						break;
 					case 'N':
-						fieldsprite.setTextureRect(IntRect(128, 0, 64, 64));//получили нужный нам прямоугольник с котом
+						fieldsprite.setTextureRect(IntRect(0, 64, 64, 64));
 						break;
 					}
 
@@ -555,14 +708,15 @@ void CBattle::GameBody(RenderWindow& window) {
 			for (int i = 0; i < 10; ++i) {
 				for (int j = 0; j < 10; ++j) {
 					fieldsprite.setPosition(f, l);
-					stt = BotField.ReturnCStat(i, j);
+					stt = BotField->ReturnCStat(i, j);
 					sym = stt[0];
 					switch (sym) {
 					case 'I':
 						fieldsprite.setTextureRect(IntRect(0, 0, 64, 64));
 						break;
 					case 'A':
-						fieldsprite.setTextureRect(IntRect(64, 0, 64, 64));
+						fieldsprite.setTextureRect(IntRect(0, 0, 64, 64));  
+						//fieldsprite.setTextureRect(IntRect(64, 0, 64, 64)); 
 						break;
 					case 'D':
 						fieldsprite.setTextureRect(IntRect(64, 64, 64, 64));
@@ -607,6 +761,39 @@ void CBattle::GameBody(RenderWindow& window) {
 				break;
 			}
 			window.draw(Mstk);
+		}
+
+		if (showemenu) {
+			window.draw(mborder);
+			window.draw(emenu1);			
+			window.draw(emenu2);		
+			switch (winner) {
+			case 0:
+				etext.setFillColor(Color::Blue);
+				etext.setScale(1.7, 1.7);
+				etext.setString("YOU WON!");
+				etext.setPosition(395+40, 40+20);				
+				break;
+			case 1:
+				etext.setFillColor(Color::Red);
+				etext.setScale(1.4, 1.4);
+				etext.setString("ENEMY WON!");
+				etext.setPosition(395 + 35, 40 + 30);				
+				break;
+			}	
+			window.draw(etext);
+			etext.setFillColor(Color::White);
+			etext.setScale(1, 1);
+			etext.setString("MENU");
+			etext.setPosition(499+75, 270+20);
+			window.draw(etext);
+			etext.setScale(0.7, 0.7);
+			etext.setString("NEXT ROUND");
+			etext.setPosition(499 + 35, 370 + 20);
+			window.draw(etext);
+			emenu1.setColor(Color::White);
+			emenu2.setColor(Color::White);
+					
 		}
 
 		window.display();		

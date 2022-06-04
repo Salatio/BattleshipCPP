@@ -14,9 +14,7 @@ public:
 	int PutShip(int _x, int _y, Ship* _fleet, int n);
 	int ReturnSCount();
 	std::string ReturnCStat(int _x, int _y);
-	int ReturnCCount();
-	/*void ReduceSCount();
-	void SCountPlus();*/	
+	int ReturnCCount();		
 private:
 	Cage ShipField[10][10]; //creating field of the sea batle
 	int ShipCount;

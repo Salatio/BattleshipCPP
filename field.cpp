@@ -3,40 +3,6 @@
 Field::Field() : ShipCount(0), CageCount(100) {};
 
 void Field::PrintCages(int v) const {	
-	//std::string a = "NOTEX";
-	//std::string name = "YOUR FIELD";
-	//int posx = 0, posy = 4;
-	//if (v) {
-	//	posx = 35;
-	//	a = "ACTIVE";
-	//	name = "ENEMY'S FIELD";
-	//}
-	//GoToXY(posx, posy-2);
-	//std::cout << name;	
-	//GoToXY(posx, posy++);
-	//std::cout << "  1  2  3  4  5  6  7  8  9  10";
-	//GoToXY(posx, posy);
-	////std::cout << "\n";
-	////char s = 'À';
-	//int ns = 65;
-	//for (int x = 0; x < 10; ++x) {
-	//	//std::cout << s++ << " ";
-	//	std::cout << (char)ns++;
-	//	for (int y = 0; y < 10; ++y) {
-	//		if (ShipField[x][y].Status() == a) {
-	//			SetColor(White, LightBlue);
-	//			std::cout << " ~ ";
-	//			SetColor(White, Black);
-	//		} else 
-	//			ShipField[x][y].PrintCage();
-	//	}
-	//	GoToXY(posx, ++posy);
-	//}	
-	////std::cout << ShipCount << " ship(s) left";
-	////GoToXY(posx, ++posy);
-	////std::cout << CageCount;
-	//GoToXY(posx, ++posy);
-	
 
 }
 void Field::ChangeCages(int _x, int _y, std::string _st) {
@@ -136,8 +102,7 @@ int Field::PutShip(int _x, int _y, Ship* _fleet, int n) {
 
 		if (!offsite) { //if ship can be placed 
 			if (nplaced) {
-				ShipCount++;
-				//SCountPlus();
+				ShipCount++;				
 				_fleet[n].BCplus();
 				ChangeField(_x, _y, _fleet, n);
 				_fleet[n].InitShip(_x, _y);
@@ -170,9 +135,7 @@ int Field::StrikeCages(int _x, int _y, Ship* _fleet) {
 					excode = 2;
 					CageCount--;
 					if (_fleet[i].ReturnHealth() == 0) {
-						ShipCount--;
-						//ReduceSCount();
-						//_fleet[i].ChangeCages(_x, _y, "ELIMINATED");
+						ShipCount--;						
 						int cnt = 0;
 						std::string _st = "ELIMINATED";
 						if (_fleet[i].ReturnDirection() == "RIGHT") {
@@ -240,9 +203,7 @@ int Field::StrikeCages(int _x, int _y, Ship* _fleet) {
 									}
 								}
 							}
-						}
-						/*if (!ShipCount)
-							std::cout << " Fleet has been defeated \n";*/
+						}						
 					}
 					missed = false;
 					break;
@@ -264,20 +225,13 @@ int Field::ReturnSCount() {
 	return ShipCount;
 }
 
-//void Field::ReduceSCount() {
-//	ShipCount--;
-//}
-
-//void Field::SCountPlus() {
-//	ShipCount++;
-//}
-
 std::string Field::ReturnCStat(int _x, int _y) {
 	if (_x >= 0 || _x <= 9 || _y >= 0 || _y <= 9)
 		return ShipField[_x][_y].Status();
 	else
 		return 0;
 }
+
 int Field::ReturnCCount() {
 	return CageCount;
 }

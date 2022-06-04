@@ -3,39 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include <cstdlib>
 #include <iostream>
-#include <vector>
-#include <stdexcept>
 #include <Windows.h>
-#include <limits>
-#include <conio.h>
+#include <time.h>
 using namespace sf;
-
-//void GoToXY(int x, int y);
-//void CursorVisible(bool visible);
-//void ClearS();
-//
-//enum ConsoleColor
-//{
-//	Black = 0,
-//	Blue = 1,
-//	Green = 2,
-//	Cyan = 3,
-//	Red = 4,
-//	Magenta = 5,
-//	Brown = 6,
-//	LightGray = 7,
-//	DarkGray = 8,
-//	LightBlue = 9,
-//	LightGreen = 10,
-//	LightCyan = 11,
-//	LightRed = 12,
-//	LightMagenta = 13,
-//	Yellow = 14,
-//	White = 15
-//};
-//
-//void SetColor(int text, int background);
-//void SetColor(int text, ConsoleColor/*int*/ background);
 
 class Cage {
 public:	
