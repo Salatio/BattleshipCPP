@@ -4,26 +4,7 @@ Cage::Cage(): local_status("INIT"), X(-1), Y(-1) {} //Initializated
 void Cage::ChangeStatus(std::string _st) {
 	local_status = _st;
 }
-void Cage::PrintCage() const {
-	if (local_status == "INIT") {		
-		std::cout << " ~ ";		
-	}
-	else if (local_status == "ACTIVE") {		
-		std::cout << "   ";		
-	}
-	else if (local_status == "DESTROYED") {		
-		std::cout << " X ";		
-	}
-	else if (local_status == "MISSED") {		
-		std::cout << "   ";		
-	}
-	else if (local_status == "ELIMINATED") {		
-		std::cout << "   ";		
-	}
-	else if (local_status == "NOTHERE") {		
-		std::cout << "   ";
-	}		
-}
+
 std::string Cage::Status() const {
 	return local_status;
 }

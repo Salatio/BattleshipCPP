@@ -1,11 +1,12 @@
 #include "ship.h"
 
 Ship::Ship() : direction("RIGHT"), health(0), breakcount(0), decks(0) {};
-Ship::Ship(int _health) : direction("RIGHT"), health(_health), breakcount(0), decks(_health) {};
+Ship::Ship(int _decks) : direction("RIGHT"), health(_decks), breakcount(0), decks(_decks) {};
+
 void Ship::SetDirection(std::string _dir) {
 	direction = _dir;
 }
-void Ship::ChangeCages(int _x, int _y, std::string _st) { //receives coordinates and created field 		
+void Ship::ChangeCages(int _x, int _y, std::string _st) { 		
 	for (int i = 0; i < decks; ++i) {
 		if ((s[i].ReturnX() == _x) && (s[i].ReturnY() == _y)) {
 			s[i].ChangeStatus(_st);
@@ -15,10 +16,18 @@ void Ship::ChangeCages(int _x, int _y, std::string _st) { //receives coordinates
 	}
 }
 
-void Ship::PrintCages(int v) const {
-	for (int x = 0; x < decks; ++x) {		
-			s[x].PrintCage();		
-		std::cout << "\n";
+void Ship::PrintCages(RenderWindow& window, Sprite spr, int _f, int _l) const {
+	int f = _f, l = _l;	
+	if (breakcount) {
+		if (health) 
+			spr.setTextureRect(IntRect(64, 0, 64, 64));
+		else if (!health)
+			spr.setTextureRect(IntRect(64, 64, 64, 64));
+		for (int i = 0; i < decks; ++i) {
+			spr.setPosition(f, l);
+			window.draw(spr);
+			l += 26;
+		}
 	}
 }
 
@@ -77,9 +86,4 @@ std::string Ship::ReturnDirection() const {
 
 int Ship::ReturnHealth() const {
 	return health;
-}
-
-std::ostream& operator<<(std::ostream& out, const Ship& shp) {
-	shp.PrintCages(0);
-	return out;
 }

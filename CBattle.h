@@ -8,9 +8,7 @@ public:
 	CBattle();
 	void RunGame();
 	bool GameMenu(RenderWindow& window);
-	bool GameBody(RenderWindow& window);
-	void NewGame(); ///
-	void PrintF(Field& _fld, int c); //
+	bool GameBody(RenderWindow& window);	
 private:
 	int BotDec, MapDec;
 	Bot* nBot;

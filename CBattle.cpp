@@ -8,6 +8,13 @@ void CBattle::RunGame() {
 		while (GameBody(window)) {};
 }
 bool CBattle::GameMenu(RenderWindow& window) {
+	Texture bdtexture;
+	bdtexture.loadFromFile("img/back.jpg");
+	Sprite bdsprite;
+	bdsprite.setTexture(bdtexture);
+	bdsprite.setScale(1.3, 1.3);
+	bdsprite.setPosition(0, 0);
+
 	Texture Menutext;
 	Menutext.loadFromFile("img/WPA.png");
 	Sprite border, menu1, menu2, menu3, menu4;
@@ -44,7 +51,7 @@ bool CBattle::GameMenu(RenderWindow& window) {
 	mapsector4.setScale(2, 2);
 	mapsector4.setTextureRect(IntRect(90 * 3, 0, 90, 92));
 
-	Font mfont;//רנטפע 
+	Font mfont;
 	mfont.loadFromFile("img/NB.ttf");
 	Text tname("", mfont, 30);	
 	tname.setStyle(sf::Text::Bold);	
@@ -74,8 +81,7 @@ bool CBattle::GameMenu(RenderWindow& window) {
 			switch (stage) {
 			case 0:
 				showMenu = 1;
-				select = 0;
-				//showMenu = true;				
+				select = 0;							
 				if (IntRect(499, 170, 94 * 3, 32 * 3).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Yellow); select = 1; }
 				if (IntRect(499, 320, 94 * 3, 32 * 3).contains(Mouse::getPosition(window))) { menu2.setColor(Color::Yellow); select = 2; }
 				if (Mouse::isButtonPressed(Mouse::Left)) {
@@ -94,16 +100,14 @@ bool CBattle::GameMenu(RenderWindow& window) {
 				break;
 			case 1:
 				showMenu = 2;
-				select = 0;
-				//showMenu = true;				
+				select = 0;								
 				if (IntRect(499, 120, 94*3, 32*3).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Yellow); select = 1; }
 				if (IntRect(499, 229, 94 * 3, 32 * 3).contains(Mouse::getPosition(window))) { menu2.setColor(Color::Yellow); select = 2; }
 				if (IntRect(499, 338, 94 * 3, 32 * 3).contains(Mouse::getPosition(window))) { menu3.setColor(Color::Yellow); select = 3; }
 				if (IntRect(499, 447, 94 * 3, 32 * 3).contains(Mouse::getPosition(window))) { menu4.setColor(Color::Yellow); select = 4; }
 				if (Mouse::isButtonPressed(Mouse::Left)) {
 					switch (select) {
-					case 1:
-						//stage = 5;
+					case 1:						
 						pauseTimer = 2800;
 						std::cout << "PLAY \n";
 						return true;
@@ -127,21 +131,18 @@ bool CBattle::GameMenu(RenderWindow& window) {
 				break;
 			case 2:
 				showMenu = 3;
-				select = 0;
-				//showMenu = true;				
+				select = 0;							
 				if (IntRect(499, 170, 94 * 3, 32 * 3).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Yellow); select = 1; }
 				if (IntRect(499, 320, 94 * 3, 32 * 3).contains(Mouse::getPosition(window))) { menu2.setColor(Color::Yellow); select = 2; }
 				if (Mouse::isButtonPressed(Mouse::Left)) {
 					switch (select) {
-					case 1:
-						//Botdif = 0;
+					case 1:						
 						BotDec = 0;
 						stage--;
 						pauseTimer = 2800;
 						std::cout << "BOT 0 \n";
 						break;
-					case 2:
-						//Botdif = 1;
+					case 2:						
 						BotDec = 1;
 						stage--;
 						pauseTimer = 2800;
@@ -152,37 +153,32 @@ bool CBattle::GameMenu(RenderWindow& window) {
 				break;
 			case 3:
 				showMenu = 4;
-				select = 0;
-				//showMenu = true;				
+				select = 0;							
 				if (IntRect(548 - 100, 140, 90*2, 92*2).contains(Mouse::getPosition(window))) { mapsector1.setColor(Color::Yellow); select = 1; }
 				if (IntRect(548 + 100, 140, 90*2, 92*2).contains(Mouse::getPosition(window))) { mapsector2.setColor(Color::Yellow); select = 2; }
 				if (IntRect(548 - 100, 350, 90*2, 92*2).contains(Mouse::getPosition(window))) { mapsector3.setColor(Color::Yellow); select = 3; }
 				if (IntRect(548 + 100, 350, 90*2, 92*2).contains(Mouse::getPosition(window))) { mapsector4.setColor(Color::Yellow); select = 4; }
 				if (Mouse::isButtonPressed(Mouse::Left)) {
 					switch (select) {
-					case 1:
-						//Botdif = 0;
+					case 1:						
 						MapDec = 0;
 						stage = 1;
 						pauseTimer = 2800;
 						std::cout << "map 0 \n";
 						break;
-					case 2:
-						//Botdif = 1;
+					case 2:						
 						MapDec = 1;
 						stage = 1;
 						pauseTimer = 2800;
 						std::cout << "map 1 \n";
 						break;
-					case 3:
-						//Botdif = 0;
+					case 3:						
 						MapDec = 2;
 						stage = 1;
 						pauseTimer = 2800;
 						std::cout << "map 2 \n";
 						break;
-					case 4:
-						//Botdif = 1;
+					case 4:						
 						MapDec = 3;
 						stage = 1;
 						pauseTimer = 2800;
@@ -196,20 +192,8 @@ bool CBattle::GameMenu(RenderWindow& window) {
 
 		window.clear();
 
-		window.draw(border);		
-	/*	menu1.setPosition(499, 120);
-		window.draw(menu1);
-		menu2.setPosition(499, 229);
-		window.draw(menu2);
-		menu1.setPosition(499, 338);
-		window.draw(menu1);
-		menu2.setPosition(499, 447);
-		window.draw(menu2);
-
-		menu1.setPosition(499, 170);
-		window.draw(menu1);
-		menu2.setPosition(499, 320);
-		window.draw(menu2);*/
+		window.draw(bdsprite);
+		window.draw(border);
 
 		switch (showMenu) {
 		case 1:			
@@ -288,35 +272,41 @@ bool CBattle::GameMenu(RenderWindow& window) {
 	}
 }
 bool CBattle::GameBody(RenderWindow& window) {
-	Texture fieldtexture;
-	//fieldtexture.loadFromFile("img/m.png");
-	fieldtexture.loadFromFile("img/IN.png");
-
+	Texture fieldtexture;	
+	fieldtexture.loadFromFile("img/textf.png");
 	Sprite fieldsprite;
 	fieldsprite.setTexture(fieldtexture);
 	fieldsprite.setTextureRect(IntRect(0, 0, 64, 64));
-	fieldsprite.setScale(0.7, 0.7);
-	//fieldsprite.setPosition(0, 0);
+	fieldsprite.setScale(0.7, 0.7);	
+
+	Sprite showshipspt;
+	showshipspt.setTexture(fieldtexture);
+	showshipspt.setScale(0.4, 0.4);
+
+	Texture bottexture;
+	bottexture.loadFromFile("img/textf2.png");
+	Sprite botsprite;
+	botsprite.setTexture(bottexture);
+	botsprite.setTextureRect(IntRect(0, 0, 64, 64));
+	botsprite.setScale(0.7, 0.7);
+
 
 	Texture shiptexture;	
 	shiptexture.loadFromFile("img/SingleFile1.png");
 	Sprite shipsprite;
-	shipsprite.setTexture(shiptexture);
-	//shipsprite.setTextureRect(IntRect(8, 100, 124, 117));
+	shipsprite.setTexture(shiptexture);	
 	shipsprite.setScale(1.3, 1.3);
 	shipsprite.setOrigin(15, 15);
-	shipsprite.setPosition(0+15, 0+15);		
-	/////////////////////////////////
+	shipsprite.setPosition(0+15, 0+15);
+	
+	
 	Texture pointexture;
 	pointexture.loadFromFile("img/C.png");
-
 	Sprite pointsprite;
 	pointsprite.setTexture(pointexture);
 	pointsprite.setTextureRect(IntRect(0, 0, 32, 32));
-	pointsprite.setPosition(532, 0);
+	pointsprite.setPosition(532, 0);	
 	
-	/////////////////////////////////
-	/////////////////////////////////
 	Texture bdtexture;
 	switch (MapDec) {
 	case 0:
@@ -332,22 +322,25 @@ bool CBattle::GameBody(RenderWindow& window) {
 		bdtexture.loadFromFile("img/fourth.jpg");
 		break;
 	}	
+
 	Sprite bdsprite;
 	bdsprite.setTexture(bdtexture);
-	bdsprite.setScale(1.3, 1.3);
-	//bdsprite.setTextureRect(IntRect(0, 0, 1056, 648));
+	bdsprite.setScale(1.3, 1.3);	
 	bdsprite.setPosition(0, 0);	
 
-	Font font;//רנטפע 
+	Font font;
 	font.loadFromFile("img/NB.ttf");
-	Text Fl("", font, 30), Mstk("", font, 20);
-	//text.setFillColor(Color::Yellow);	
+	Text Fl("", font, 30);	
 	Fl.setStyle(sf::Text::Bold);
 	Fl.setOutlineColor(Color::Black);
 	Fl.setOutlineThickness(3);
-	Mstk.setStyle(sf::Text::Bold);
-	Mstk.setFillColor(Color::Red);	
-	Mstk.setPosition(0, 410);
+
+	Text hint("WASD to move, R to rotate and N to enter", font, 18);
+	hint.setStyle(sf::Text::Bold);
+	hint.setFillColor(Color::Yellow);
+	hint.setOutlineColor(Color::Black);
+	hint.setOutlineThickness(2);
+	hint.setPosition(0, 0);
 
 	Texture Endmenu;
 	Endmenu.loadFromFile("img/WPA.png");
@@ -368,18 +361,12 @@ bool CBattle::GameBody(RenderWindow& window) {
 	etext.setStyle(sf::Text::Bold);
 	etext.setOutlineColor(Color::Black);
 	etext.setOutlineThickness(3);
-
-	
-	//Bot nBot(BotDec); //crating new bot	
+			
 	nBot = new Bot(BotDec);
-	std::cout << nBot->ReturnDif() << " Bots dif \n";
-	//Field MainField; //creating new field
-	MainField = new Field;
-	//Field BotField; //creating bot's field	
+	std::cout << nBot->ReturnDif() << " Bots dif \n";	
+	MainField = new Field;	
 	BotField = new Field;
-	fleet = new Ship[]{1, 1, 1, 1, 2, 2, 2, 3, 3, 4};
-	//Ship fleet[10] = { 1, 1, 1, 1, 2, 2, 2, 3, 3, 4 }; // 0..3 = "1", 4..6 = "2", 7..8 = "3, 9 = "4"  -  creating new fleet  
-	//Ship BotFleet[10] = { 1, 1, 1, 1, 2, 2, 2, 3, 3, 4 };  //creating bot's field
+	fleet = new Ship[]{1, 1, 1, 1, 2, 2, 2, 3, 3, 4};	
 	BotFleet = new Ship[]{ 1, 1, 1, 1, 2, 2, 2, 3, 3, 4 };
 	int stage = 5;
 	int xס = 0, yס = 0;
@@ -391,8 +378,7 @@ bool CBattle::GameBody(RenderWindow& window) {
 	bool pnt = false, shipnt = false;
 	bool rot = false;	
 	int r = 0;	
-	int Botdif = 0;	
-	int mstkT = 0;
+	int Botdif = 0;		
 	int strb = -1;
 	int strk = -1;
 	bool showemenu = false;
@@ -413,19 +399,12 @@ bool CBattle::GameBody(RenderWindow& window) {
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-		///////////////////GAME///////////	
-
 		
 		if (pauseTimer > 2990) {
 			switch (stage) {					
 			case 5:				
-				/*srand(time(0));
-				nBot.BotPutShip(MainField, fleet);
-				stage++;
-				pauseTimer = 0;*/
 				pauseTimer = 2920;
-				shipnt = true;
-				//rot = false;
+				shipnt = true;				
 				rd = fleet[n].ReturnDecks();
 				wid = 31 * rd;
 				dr = fleet[n].ReturnDirection();				
@@ -489,10 +468,8 @@ bool CBattle::GameBody(RenderWindow& window) {
 						xס = yס = 0;
 						r = 0;
 						pauseTimer = 2700;
-					}
-					else
-						mstkT = 1;
-					if (MainField->ReturnSCount() == LEN) {
+					}					
+					if (MainField->ReturnSCount() == 10) {
 						stage++;
 						shipnt = false;
 						pauseTimer = 2000;
@@ -534,8 +511,7 @@ bool CBattle::GameBody(RenderWindow& window) {
 					break;
 				}
 				break;
-			case 6:	
-				//shipnt = false;
+			case 6:					
 				srand(time(0));
 				nBot->BotPutShip(*BotField, BotFleet);
 				stage++;
@@ -544,9 +520,7 @@ bool CBattle::GameBody(RenderWindow& window) {
 				pauseTimer = 1500;	
 				xס = 0, yס = 0;
 				break;
-			case 7:
-				//pnt = true;
-				//la = 0;		
+			case 7:						
 				pnt = true;
 				pauseTimer = 2920;				
 				if ((Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A)))) {
@@ -583,22 +557,16 @@ bool CBattle::GameBody(RenderWindow& window) {
 						stage++;
 						pauseTimer = 2000;
 						pnt = false;
-					}
-					else
-						if (strk == 0)
-							mstkT = 2;
+					}					
 					if (!BotField->ReturnSCount()) {
 						winner = 0;
 						stage = 9;
 						pauseTimer = 2000;
-					}
-						//return;
-					///////////////
+					}					
 					break;
 				}
 				break;
 			case 8:				
-				//pauseTimer = 2000;
 				strb = nBot->BotStrikeField(*MainField, fleet);
 				switch (strb) {
 				case 1:
@@ -611,16 +579,14 @@ bool CBattle::GameBody(RenderWindow& window) {
 						winner = 1;
 						stage++;
 						pauseTimer = 2000;
-					}
-					/////////////////
+					}					
 					break;
 				}				
 				break;
 			case 9:
 				std::cout << "end of cycle \n";
 				showemenu = true;
-				select = 0;
-				//showMenu = true;				
+				select = 0;							
 				if (IntRect(499, 270, 94 * 3, 32 * 3).contains(Mouse::getPosition(window))) { emenu1.setColor(Color::Yellow); select = 1; }
 				if (IntRect(499, 370, 94 * 3, 32 * 3).contains(Mouse::getPosition(window))) { emenu2.setColor(Color::Yellow); select = 2; }
 				if (Mouse::isButtonPressed(Mouse::Left)) {
@@ -651,93 +617,33 @@ bool CBattle::GameBody(RenderWindow& window) {
 				}
 				break;
 			}			
-			//pauseTimer = 0;
 		}
 
 		window.clear();
-		window.draw(bdsprite);		
-				
-        //////////////////OUR FIELD/////////		
-		
-			int f = 150, l = 100;
-			Fl.setString("YOUR FIELD");
-			Fl.setPosition(f, l+430);
-			window.draw(Fl);
-			char sym = ' ';
-			std::string stt = "";
-			for (int i = 0; i < 10; ++i) {
-				for (int j = 0; j < 10; ++j) {
-					fieldsprite.setPosition(f, l);
-					stt = MainField->ReturnCStat(i, j);
-					sym = stt[0];
-					switch (sym) {
-					case 'I':
-						fieldsprite.setTextureRect(IntRect(0, 0, 64, 64));
-						break;
-					case 'A':
-						fieldsprite.setTextureRect(IntRect(64, 0, 64, 64));
-						break;
-					case 'D':
-						fieldsprite.setTextureRect(IntRect(64, 64, 64, 64));
-						break;
-					case 'M':
-						fieldsprite.setTextureRect(IntRect(0, 64, 64, 64));
-						break;
-					case 'E':
-						fieldsprite.setTextureRect(IntRect(128, 0, 64, 64));
-						break;
-					case 'N':
-						fieldsprite.setTextureRect(IntRect(0, 64, 64, 64));
-						break;
-					}
-
-					window.draw(fieldsprite);
-
-					f += 40;
-				}
-				f = 150;
-				l += 40;
-			}
-			/////////////////////////ENEMY'S FIELD
+		window.draw(bdsprite);	  
+		window.draw(hint);
 			
-			f = 730;
-			l = 100;
-			Fl.setString("ENEMY'S FIELD");
-			Fl.setPosition(f, l+430);
-			window.draw(Fl);
-			for (int i = 0; i < 10; ++i) {
-				for (int j = 0; j < 10; ++j) {
-					fieldsprite.setPosition(f, l);
-					stt = BotField->ReturnCStat(i, j);
-					sym = stt[0];
-					switch (sym) {
-					case 'I':
-						fieldsprite.setTextureRect(IntRect(0, 0, 64, 64));
-						break;
-					case 'A':
-						fieldsprite.setTextureRect(IntRect(0, 0, 64, 64));  
-						//fieldsprite.setTextureRect(IntRect(64, 0, 64, 64)); 
-						break;
-					case 'D':
-						fieldsprite.setTextureRect(IntRect(64, 64, 64, 64));
-						break;
-					case 'M':
-						fieldsprite.setTextureRect(IntRect(0, 64, 64, 64));
-						break;
-					case 'E':
-						fieldsprite.setTextureRect(IntRect(128, 0, 64, 64));
-						break;
-					case 'N':
-						fieldsprite.setTextureRect(IntRect(0, 64, 64, 64));
-						break;
-					}
-					window.draw(fieldsprite);
+		Fl.setString("YOUR FIELD");
+		Fl.setPosition(150, 530);
+		window.draw(Fl);
+		MainField->PrintCages(window, fieldsprite, 150, 100);
 
-					f += 40;
-				}
-				f = 730;
-				l += 40;
-			}		
+		int a = 150, b = 600;
+		for (int i = 0; i < 10; ++i) {
+			fleet[i].PrintCages(window, showshipspt, a, b);
+			a += 40;
+		}		
+		
+		Fl.setString("ENEMY'S FIELD");
+		Fl.setPosition(730, 530);
+		window.draw(Fl);
+		BotField->PrintCages(window, botsprite, 730, 100);
+
+		a = 730, b = 600;
+		for (int i = 0; i < 10; ++i) {
+			BotFleet[i].PrintCages(window, showshipspt, a, b);
+			a += 40;
+		}
 		
 		if (shipnt) {
 			shipsprite.setPosition(fi + 10, la + 20);
@@ -747,21 +653,8 @@ bool CBattle::GameBody(RenderWindow& window) {
 		}		
 		if (pnt) {
 			pointsprite.setPosition(fi+16, la+16);
-			window.draw(pointsprite);
-			//pnt = false;
-		}		
-
-		if (mstkT) {
-			switch (mstkT) {
-			case 1:
-				Mstk.setString("Area is already busy!");
-				break;
-			case 2:
-				Mstk.setString("The spot has already been striked!");
-				break;
-			}
-			window.draw(Mstk);
-		}
+			window.draw(pointsprite);			
+		}			
 
 		if (showemenu) {
 			window.draw(mborder);
@@ -797,14 +690,6 @@ bool CBattle::GameBody(RenderWindow& window) {
 		}
 
 		window.display();		
-
-		///////////////////GAME///////////
+		
 	}
-}
-void CBattle::NewGame() {	
-	
-}
-
-void CBattle::PrintF(Field& _fld, int c) {
-	
 }

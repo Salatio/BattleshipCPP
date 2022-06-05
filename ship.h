@@ -2,16 +2,14 @@
 
 #include "CageArray.h"
 
-#define LEN 10 
-
 class Ship: public CageArray {
 public:	
 	Ship();
-	Ship(int _health); //receives the amount of decks
+	Ship(int _decks);
 	virtual ~Ship() {};
-	virtual void ChangeCages(int _x, int _y, std::string _st); //put ship on the field
+	virtual void ChangeCages(int _x, int _y, std::string _st); 
 	void SetDirection(std::string _dir);	
-	virtual void PrintCages(int v) const;		
+	virtual void PrintCages(RenderWindow& window, Sprite spr, int _f, int _l) const;
 	void InitShip(int _x, int _y);
 	int ReturnDecks() const;
 	int ReturnX(int _j) const;
@@ -21,11 +19,9 @@ public:
 	std::string ReturnDirection() const;
 	int ReturnHealth() const;		
 private:
-	std::string direction; //ship direction on the field
-	int health; //deck count 
+	std::string direction; 
+	int health; 
 	int decks;
 	Cage s[4];
 	int breakcount;	
 };
-
-std::ostream& operator<<(std::ostream& out, const Ship& shp);

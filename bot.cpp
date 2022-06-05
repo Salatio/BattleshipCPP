@@ -2,26 +2,9 @@
 
 Bot::Bot() : dif(0), hit(false), x(-1), y(-1), R(true), L(true), U(true), D(true) {};
 Bot::Bot(int d) : dif(d), hit(false), x(-1), y(-1), R(true), L(true), U(true), D(true) {}
-void Bot::BotPutShip(Field& _fld, Ship* _fleet) {
-	std::cout.setstate(std::ios_base::failbit);
+void Bot::BotPutShip(Field& _fld, Ship* _fleet) {	
 	srand(time(0));	
-	switch (dif) {
-	case 0:
-		PutShip_0(_fld, _fleet);
-		break;
-	case 1:
-		PutShip_1(_fld, _fleet);
-		break;
-	}
-	std::cout.clear();
-}
-void Bot::PutShip_0(Field& _fld, Ship* _fleet) {	
-	PutShip_1(_fld, _fleet);
-}
-
-void Bot::PutShip_1(Field& _fld, Ship* _fleet) {
-	//srand(time(0));	
-	int arr[10] = { 0 }; //array of placed ships
+	int arr[10] = { 0 }; 
 	bool set = false;
 	while (!set) {
 		for (int i = 0; i < 10; ++i) {
@@ -47,7 +30,7 @@ void Bot::PutShip_1(Field& _fld, Ship* _fleet) {
 			}
 			if (_fld.PutShip(i, j, _fleet, n))
 				arr[n]++;
-			if (_fld.ReturnSCount() == LEN) {
+			if (_fld.ReturnSCount() == 10) {
 				set = true;
 				break;
 			}
@@ -55,7 +38,7 @@ void Bot::PutShip_1(Field& _fld, Ship* _fleet) {
 	}
 }
 
-int Bot::BotStrikeField(Field& _fld, Ship* _fleet) {
+int Bot::BotStrikeField(Field& _fld, Ship* _fleet) {	
 	switch (dif) {
 	case 0:		
 		return StrikeF_0(_fld, _fleet);
@@ -65,20 +48,18 @@ int Bot::BotStrikeField(Field& _fld, Ship* _fleet) {
 		break;
 	}
 }
+
 int Bot::StrikeF_0(Field& _fld, Ship* _fleet) {
 	int x = rand() % 10;
 	int y = rand() % 10;	
 	return _fld.StrikeCages(x, y, _fleet);
 }
 
-int Bot::StrikeF_1(Field& _fld, Ship* _fleet) {
-	//srand(time(0));
+int Bot::StrikeF_1(Field& _fld, Ship* _fleet) {	
 	if (!hit) {
 		int _x = rand() % 10;
 		int _y = rand() % 10;		
-		std::cout.setstate(std::ios_base::failbit);
-		int tstrike = _fld.StrikeCages(_x, _y, _fleet);
-		std::cout.clear();
+		int tstrike = _fld.StrikeCages(_x, _y, _fleet);		
 		if (tstrike == 2 && _fld.ReturnCStat(_x, _y) != "ELIMINATED") {
 			hit = true;
 			x = _x;
@@ -122,7 +103,7 @@ int Bot::StrikeF_1(Field& _fld, Ship* _fleet) {
 			}
 		}
 		if (D) {
-			for (int i = x - 1; i >= 0; --i) {
+			for (int i = x + 1; i < 10; ++i) {
 				if (_fld.ReturnCStat(i, y) == "MISSED" || _fld.ReturnCStat(i, y) == "NOTHERE") {
 					D = false;
 					break;
@@ -139,7 +120,7 @@ int Bot::StrikeF_1(Field& _fld, Ship* _fleet) {
 			}
 		}
 		if (U) {
-			for (int i = x + 1; i < 10; ++i) {
+			for (int i = x - 1; i >= 0; --i) { 
 				if (_fld.ReturnCStat(i, y) == "MISSED" || _fld.ReturnCStat(i, y) == "NOTHERE") {
 					U = false;
 					break;
@@ -156,10 +137,6 @@ int Bot::StrikeF_1(Field& _fld, Ship* _fleet) {
 			}
 		}
 	}
-}
-
-bool Bot::hitted() {
-	return hit;
 }
 
 int Bot::ReturnDif() {
