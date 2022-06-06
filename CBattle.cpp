@@ -371,7 +371,7 @@ bool CBattle::GameBody(RenderWindow& window) {
 	int stage = 5;
 	int xñ = 0, yñ = 0;
 	int fi = 160, la = 100;	
-	int n = 0;
+	int n = 9;
 	int rd = 0;
 	int wid = 0;	
 	std::string dr = "";
@@ -462,7 +462,7 @@ bool CBattle::GameBody(RenderWindow& window) {
 				if ((Keyboard::isKeyPressed(Keyboard::N))) {
 					int puts = MainField->PutShip(xñ, yñ, fleet, n);
 					if (puts) {
-						n++;
+						n--;
 						fi = 160;
 						la = 100;
 						xñ = yñ = 0;
